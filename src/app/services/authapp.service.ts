@@ -1,9 +1,7 @@
 // tslint:disable-next-line: quotemark
 import { Injectable } from "@angular/core";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable({ providedIn: "root" })
 export class AuthappService {
   constructor() {}
 
@@ -11,9 +9,7 @@ export class AuthappService {
     if (userId === "Andrea" && password === "test") {
       sessionStorage.setItem("Utente", userId);
       return true;
-    } else {
-      return false;
-    }
+    } else return false;
   }
 
   loggedUser() {
