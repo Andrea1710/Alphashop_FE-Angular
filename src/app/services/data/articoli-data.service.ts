@@ -1,7 +1,8 @@
-import { ApiMsg } from './../../articoli/articoli.component';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+
 import { Articolo } from "src/app/articoli/articoli.component";
+import { ApiMsg } from './../../articoli/articoli.component';
 
 @Injectable({ providedIn: "root" })
 export class ArticoliDataService {
@@ -12,26 +13,26 @@ export class ArticoliDataService {
   constructor(private httpClient: HttpClient) {}
 
   getArticoliByDescription(descrizione: string) {
-    return this.httpClient.get<Articolo[]>(
-      `http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`
-    );
+    return this.httpClient.get<Articolo[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`);
   }
 
   getArticoliByCodArt(codart: string) {
-    return this.httpClient.get<Articolo>(
-      `http://${this.server}:${this.port}/api/articoli/cerca/codice/${codart}`
-    );
+    return this.httpClient.get<Articolo>(`http://${this.server}:${this.port}/api/articoli/cerca/codice/${codart}`);
   }
 
   getArticoliByEan(barcode: string) {
-    return this.httpClient.get<Articolo>(
-      `http://${this.server}:${this.port}/api/articoli/cerca/ean/${barcode}`
-    );
+    return this.httpClient.get<Articolo>(`http://${this.server}:${this.port}/api/articoli/cerca/ean/${barcode}`);
   }
 
   deleteArticoloByCodArt(codart: string) {
-    return this.httpClient.delete<ApiMsg>(
-      `http://${this.server}:${this.port}/api/articoli/elimina/${codart}`
-    );
+    return this.httpClient.delete<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/elimina/${codart}`);
+  };
+
+  updateArticoli(articolo: Articolo) {
+    return this.httpClient.put<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
+  }
+
+  insertArticolo(articolo: Articolo) {
+    return this.httpClient.post<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/inserisci`, articolo);
   }
 }

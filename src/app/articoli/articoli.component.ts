@@ -4,15 +4,25 @@ import { ArticoliDataService } from "../services/data/articoli-data.service";
 
 export class Articolo {
   constructor(
-    public codart: string,
+    public codArt: string,
     public descrizione: string,
     public um: string,
-    public pzcart: number,
-    public peso: number,
+    public pzCart: number,
+    public pesoNetto: number,
     public prezzo: number,
-    public isactive: boolean,
-    public data: Date
+    public idStatoArt: string,
+    public data: Date,
+    public famAssort: FamAss,
+    public iva: Iva
   ) {}
+}
+
+export class FamAss {
+  constructor(public id: number, public descrizione: string) {}
+}
+
+export class Iva {
+  constructor(public idIva: number, public descrizione: string, aliquota: number) {}
 }
 
 export class ApiMsg {
@@ -25,16 +35,13 @@ export class ApiMsg {
   styleUrls: ["./articoli.component.css"],
 })
 export class ArticoliComponent implements OnInit {
+  
   numArt = 0;
-
   articolo: Articolo;
   articoli: Articolo[];
-
   filter: string = "";
-
   pagina: number = 1;
   righe: number = 10;
-
   apiMsg: ApiMsg;
   messaggio: string;
 

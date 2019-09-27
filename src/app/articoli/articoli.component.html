@@ -17,7 +17,11 @@
         </div>
 
         <div class="col-sm-5">
-          <button style="margin-left: 20px;" class="btn btn-success float-right">
+          <button 
+            (click)="modifica(-1)" 
+            style="margin-left: 20px;" 
+            class="btn btn-success float-right"
+          >
             Nuovo Articolo
           </button>
         </div>
@@ -56,9 +60,7 @@
       </div>
     </div>
 
-    <div class="alert alert-success" *ngIf="messaggio">
-      {{ messaggio }}
-    </div>
+    <div class="alert alert-success" *ngIf="messaggio">{{ messaggio }}</div>
 
     <table id="articoli" class="table table-striped table-bordered table-hover">
       <thead>
@@ -76,12 +78,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="
-            let articolo of articoli
-              | paginate: { itemsPerPage: righe, currentPage: pagina }
-          "
-        >
+        <tr *ngFor="let articolo of articoli | paginate: { itemsPerPage: righe, currentPage: pagina } ">
           <td>{{ articolo.codArt }}</td>
           <td class="text-left">{{ articolo.descrizione }}</td>
           <td>{{ articolo.um }}</td>
