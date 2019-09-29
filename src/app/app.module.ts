@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { NgxPaginationModule } from "ngx-pagination";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { LoginComponent } from "./login/login.component";
@@ -15,6 +15,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { JumbotronComponent } from "./jumbotron/jumbotron.component";
 import { LogoutComponent } from "./logout/logout.component";
 import { NewArtComponent } from './new-art/new-art.component';
+import { AuthInterceptorService } from './services/http/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { NewArtComponent } from './new-art/new-art.component';
     HttpClientModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

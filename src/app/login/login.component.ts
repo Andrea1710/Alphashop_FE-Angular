@@ -11,16 +11,24 @@ export class LoginComponent implements OnInit {
   userid = "";
   password = "";
   autenticato = true;
-  errorMsg = "Spiacente, la userid o la password sono errati!";
+  errorMsg = "Spiacente, lo Username o la Password sono errati!";
 
-  constructor(private route: Router, private BasicAuth: AuthappService) {}
+  constructor(private route: Router, private basicAuth: AuthappService) {}
 
   ngOnInit() {}
 
   gestAut() {
-    if (this.BasicAuth.autentica(this.userid, this.password)) {
-      this.autenticato = true;
-      this.route.navigate(["welcome", this.userid]);
-    } else this.autenticato = false;
+    this.basicAuth.autenticaService(this.userid, this.password)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.autenticato = true;
+          this.route.navigate(['welcome', this.userid]);
+        },
+        error => {
+          console.log(error);
+          this.autenticato = false;
+        }
+      )
   }
 }

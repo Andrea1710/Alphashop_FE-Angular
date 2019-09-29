@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Articolo } from "src/app/articoli/articoli.component";
 import { ApiMsg } from './../../articoli/articoli.component';
@@ -8,7 +8,7 @@ import { ApiMsg } from './../../articoli/articoli.component';
 export class ArticoliDataService {
 
   server = "localhost";
-  port = "8080";
+  port = "5051";
 
   constructor(private httpClient: HttpClient) {}
 
