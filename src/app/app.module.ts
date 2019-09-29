@@ -37,7 +37,7 @@ import { AuthInterceptorService } from './services/http/auth-interceptor.service
     HttpClientModule,
     NgxPaginationModule,
   ],
-  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

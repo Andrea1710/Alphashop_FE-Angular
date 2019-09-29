@@ -2,6 +2,7 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { server, port } from '../app.constants';
 
 export class AuthData {
   constructor(public codice: string, public messaggio: string) {}
@@ -9,9 +10,6 @@ export class AuthData {
 
 @Injectable({ providedIn: "root" })
 export class AuthappService {
-
-  server = "localhost";
-  port = "8080";
 
   constructor(private http: HttpClient) {}
 
@@ -23,12 +21,14 @@ export class AuthappService {
   }
 
   autenticaService(userId: string, password: string) {
-    const headers = new HttpHeaders({ Authorization: `Basic ${window.btoa(userId + ":" + password)}` });
+    const authString = `Basic ${window.btoa(userId + ":" + password)}`;
+    const headers = new HttpHeaders({ Authorization: authString });
     return this.http.get<AuthData>(
-      `http://${this.server}:${this.port}/api/articoli/test`, 
+      `http://${server}:${port}/api/articoli/test`, 
       { headers })
         .pipe(map(data => {
           sessionStorage.setItem("Utente", userId);
+          sessionStorage.setItem("AuthToken", authString);
           return data
         }));
   }
@@ -36,6 +36,11 @@ export class AuthappService {
   loggedUser() {
     const utente = sessionStorage.getItem("Utente");
     return sessionStorage.getItem("Utente") != null ? utente : "";
+  }
+
+  getAuthToken() {
+    if (this.loggedUser) return sessionStorage.getItem("AuthToken");
+    else return "";
   }
 
   isLogged() {
